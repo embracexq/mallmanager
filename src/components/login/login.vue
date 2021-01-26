@@ -36,10 +36,11 @@ export default {
         }
       } = res.data
       if (status === 200) {
-        this.$message.success(msg)
+        localStorage.setItem('token', data.token)
         this.$router.push({
           name: 'home'
         })
+        this.$message.success(msg)
       } else {
         this.$message.warning(msg)
       }
