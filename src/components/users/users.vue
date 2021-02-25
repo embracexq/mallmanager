@@ -1,12 +1,7 @@
 <template>
   <el-card class="box-card">
     <!-- 1.面包屑 -->
-    <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>用户管理</el-breadcrumb-item>
-      <el-breadcrumb-item>用户列表</el-breadcrumb-item>
-    </el-breadcrumb>
-
+    <my-bread level1="用户管理" level2="用户列表"></my-bread>
     <!-- 2.搜索框 -->
     <el-row class="seachRow">
       <el-col>
@@ -26,6 +21,8 @@
       <el-table-column prop="email" label="邮箱" width="180">
       </el-table-column>
       <el-table-column prop="mobile" label="电话" width="180">
+      </el-table-column>
+      <el-table-column prop="role_name" label="角色" width="180">
       </el-table-column>
       <el-table-column prop="create_time" label="创建时间" width="180">
         <!-- 如果单元格内显示的内容不是字符串（文本），需要给被显示内容外层包裹一个template -->
@@ -115,6 +112,7 @@
       </div>
     </el-dialog>
   </el-card>
+
 </template>
 
 <script>
@@ -156,6 +154,9 @@ export default {
       const res = await this.$http.put(`users/${this.currUserId}/role`, {
         rid: this.currRoleId
       })
+      if (res.data.meta.status !== 200) {
+        return this.$message.error('更新用户角色失败！')
+      }
       this.dialogFormVisibleRol = false
     },
     // 分配用户角色 打开模态框
@@ -282,9 +283,6 @@ export default {
       // pagenum 当前页码 不能为空
       // pagesize 每页显示条数 不能为空
 
-      // 需要授权的 API ，必须在请求头中使用 `Authorization` 字段提供 `token` 令牌
-      const AUTH_TOKEN = localStorage.getItem('token')
-      this.$http.defaults.headers.common['Authorization'] = AUTH_TOKEN
       const res = await this.$http.get(
         `users?query=${this.query}&pagenum=${this.pagenum}&pagesize=${this.pagesize}`)
       // console.log(res)
@@ -301,6 +299,7 @@ export default {
       if (status === 200) {
         // 1. 给表格数据赋值
         this.userList = users
+        // console.log(this.userList)
         // 2. 给total 赋值
         this.total = total
         // 3. 提示

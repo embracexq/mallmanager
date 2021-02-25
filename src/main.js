@@ -4,6 +4,8 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import ElementUI from 'element-ui'
+// MyBread其实是组件选项所在的对象{template: ''，data等}
+import MyBread from '@/components/cuscom/myBread'
 import MyHttpServer from '@/plugins/http.js'
 import moment from 'moment'
 // 引入样式文件
@@ -19,6 +21,9 @@ Vue.use(MyHttpServer)
 Vue.filter('fmtdate',(v)=>{
   return moment(v).format('YYYY-MM-DD')
 })
+
+// 全局自定义组件
+Vue.component(MyBread.name, MyBread)
 
 /* eslint-disable no-new */
 new Vue({
