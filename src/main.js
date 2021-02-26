@@ -11,6 +11,7 @@ import moment from 'moment'
 // 引入样式文件
 import 'element-ui/lib/theme-chalk/index.css'
 import '@/assets/css/reset.css'
+import TreeTable from 'vue-table-with-tree-grid'
 
 Vue.config.productionTip = false
 
@@ -23,6 +24,7 @@ Vue.filter('fmtdate',(v)=>{
 })
 
 // 全局自定义组件
+Vue.component('tree-table', TreeTable)
 Vue.component(MyBread.name, MyBread)
 
 /* eslint-disable no-new */

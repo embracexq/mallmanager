@@ -61,7 +61,7 @@
               <i class="el-icon-menu"></i>
               <span>分类列表</span>
             </el-menu-item>
-            <el-menu-item index="1-1">
+            <el-menu-item index="cate">
               <i class="el-icon-menu"></i>
               <span>商品分类</span>
             </el-menu-item>
